@@ -1,30 +1,42 @@
-import { useState } from 'react';
+import { useState } from 'react'
+import Button from '../../ui/Button'
+import { useDispatch } from 'react-redux'
+import { updateName } from './userSlice'
+import { useNavigate } from 'react-router-dom'
 
 function CreateUser() {
-  const [username, setUsername] = useState('');
+    const [username, setUsername] = useState('')
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
 
-  function handleSubmit(e) {
-    e.preventDefault();
-  }
+    function handleSubmit(e) {
+        e.preventDefault()
+        if (!username) return
+        dispatch(updateName(username))
+        navigate('/menu')
+    }
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <p>👋 Welcome! Please start by telling us your name:</p>
+    return (
+        <form onSubmit={handleSubmit}>
+            <p>👋 Welcome! Please start by telling us your name:</p>
 
-      <input
-        type="text"
-        placeholder="Your full name"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
+            <input
+                type="text"
+                placeholder="Your full name"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className="input my-4 w-72"
+            />
 
-      {username !== '' && (
-        <div>
-          <button>Start ordering</button>
-        </div>
-      )}
-    </form>
-  );
+            {username !== '' && (
+                <div>
+                    <Button type="primary" onClick={handleSubmit}>
+                        Start ordering
+                    </Button>
+                </div>
+            )}
+        </form>
+    )
 }
 
-export default CreateUser;
+export default CreateUser

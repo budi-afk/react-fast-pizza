@@ -22,6 +22,7 @@ function CreateUser() {
 
             <input
                 type="text"
+                autoFocus
                 placeholder="Your full name"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
